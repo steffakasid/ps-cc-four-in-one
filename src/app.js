@@ -1,11 +1,24 @@
 const files = app.openDialog()
 
-const myDoc = app.documents.add(new UnitValue(19.5, "cm"), new UnitValue(13, "cm"), 300, "ps-cc-four-in-one", NewDocumentMode.RGB, DocumentFill.TRANSPARENT)
+const miniPictureHeight = 6
+const miniPictureWidth = 9
+
+const portraitBase = app.documents.add(new UnitValue(miniPictureWidth*2+1, "cm"), new UnitValue(miniPictureHeight*2+1, "cm"), 300, "ps-cc-four-in-one-portrait", NewDocumentMode.RGB, DocumentFill.TRANSPARENT)
+const landscapeBase = app.documents.add(new UnitValue(miniPictureHeight*2+1, "cm"), new UnitValue(miniPictureWidth*2+1, "cm"), 300, "ps-cc-four-in-one-landscape", NewDocumentMode.RGB, DocumentFill.TRANSPARENT)
 
 const fileOne = open(files[0])
 
+const portraitOrientedPictures = []
+const landscapeOrientedPictures = []
+
+if(fileOne.height.value > fileOne.width.value) {
+    fileOne.resizeImage(6, 9, 300)
+} else {
+    fileOne.resizeImage(9, 6, 300)
+}
+
 fileOne.activeLayer.copy()
 
-app.activeDocument = myDoc
+app.activeDocument = portraitBase
 
-myDoc.paste()
+portraitBase.paste()
