@@ -38,9 +38,11 @@ function fourInOne(width, height, name) {
                 app.activeDocument = base
 
                 base.paste()
-
-                //base.artLayers[0].translate(-10, -10)
             }
+            base.artLayers[0].translate(miniWidth * -1 / 2 - 0.5, miniHeight * -1 / 2 - 0.5)
+            base.artLayers[1].translate(miniWidth * -1 / 2 - 0.5, miniHeight / 2 + 0.5)
+            base.artLayers[2].translate(miniWidth / 2 + 0.5, miniHeight * -1 / 2 - 0.5)
+            base.artLayers[3].translate(miniWidth / 2 + 0.5, miniHeight / 2 + 0.5)
         }
     }
 }
