@@ -8,8 +8,7 @@ const landscapeBase = app.documents.add(new UnitValue(miniPictureHeight*2+1, "cm
 
 const fileOne = open(files[0])
 
-const portraitOrientedPictures = []
-const landscapeOrientedPictures = []
+const {portraitFiles, landscapeFiles} = {... sortFiles(files)}
 
 if(fileOne.height.value > fileOne.width.value) {
     fileOne.resizeImage(6, 9, 300)
@@ -22,3 +21,16 @@ fileOne.activeLayer.copy()
 app.activeDocument = portraitBase
 
 portraitBase.paste()
+
+sortFiles = (files) => {
+    const portraitFiles = []
+    const landscapeFiles = []
+    files.forEach(file => {
+        if(fileOne.height.value > fileOne.width.value) {
+            portraitFiles.push(file)
+        } else {
+            landscapeFiles.push(file)
+        }
+    })
+    return {portraitFiles,landscapeFiles}
+}
