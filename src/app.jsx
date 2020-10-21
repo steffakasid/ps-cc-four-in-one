@@ -47,8 +47,7 @@ function fourInOne(width, height, name) {
 
                 doc.close(SaveOptions.DONOTSAVECHANGES)
 
-                // FIXME: 0 % 4 === 0
-                if (i % 4 === 0 || i === docs.length - 1) {
+                if ((i !== 0 && i % 3 === 0) || i === docs.length - 1) {
                     if (base.artLayers.length >= 1) {
                         base.artLayers[0].translate(miniWidth * -1 / 2 - 0.5, miniHeight * -1 / 2 - 0.5)
                     }
