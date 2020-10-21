@@ -74,11 +74,11 @@ function fourInOne(width, height, name) {
                     base.info.author = 'ps-cc-four-in-one-script'
                     base.info.creationDate = new Date().toString()
                     base.flatten()
-                    if(name === PORTRAIT_NAME) {
-                      base.rotateCanvas(90)
+                    if (name === PORTRAIT_NAME) {
+                        base.rotateCanvas(90)
                     }
                     base.bitsPerChannel = BitsPerChannelType.EIGHT
-                    base.saveAs(new File(outputFolder + "/"+name+i+".jpg"), jpegOptions)
+                    base.saveAs(new File(outputFolder + "/" + name + i + ".jpg"), jpegOptions)
                     base.close(SaveOptions.DONOTSAVECHANGES)
 
                     base = app.documents.add(new UnitValue(width, "cm"), new UnitValue(height, "cm"), 300, name, NewDocumentMode.RGB, DocumentFill.TRANSPARENT)
@@ -96,9 +96,18 @@ function sortFiles(files) {
     for (var i = 0; i < files.length; i++) {
         var doc = open(files[i])
         if (doc.height.value > doc.width.value) {
-            portraitFiles.push(files[i])
+            if(Math.round((doc.height.value / 3)) !== Math.round((doc.width.value / 2))) {
+              alert(doc.fullName + " is not a 3:2 ratio. Skipping file. Ratio is: "+doc.height.value+":"+doc.width.value)
+            } else {
+              portraitFiles.push(files[i])
+            }
+
         } else {
-            landscapeFiles.push(files[i])
+            if(Math.round((doc.height.value / 2)) !== Math.round((doc.width.value / 3))) {
+              alert(doc.fullName + "is not a 2:3 ratio. Skipping file. Ratio is: "+doc.height.value+":"+doc.width.value)
+            }else {
+              landscapeFiles.push(files[i])
+            }
         }
         doc.close()
     }
