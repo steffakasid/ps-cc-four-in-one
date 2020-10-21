@@ -29,15 +29,16 @@ const LANDSCAPE_NAME = 'landscape';
 function fourInOne(width, height, name) {
     var miniWidth = width / 2 - 0.5
     var miniHeight = height / 2 - 0.5
-    var base = app.documents.add(new UnitValue(width, "cm"), new UnitValue(height, "cm"), 300, name, NewDocumentMode.RGB, DocumentFill.TRANSPARENT)
+
     return {
         width: width,
         height: height,
         miniWidth: miniWidth,
         miniHeight: miniHeight,
-        base: base,
         name: name,
         processFiles: function(files) {
+
+            var base = app.documents.add(new UnitValue(width, "cm"), new UnitValue(height, "cm"), 300, name, NewDocumentMode.RGB, DocumentFill.TRANSPARENT)
             for (var i = 0; i < files.length; i++) {
                 var doc = open(files[i])
 
