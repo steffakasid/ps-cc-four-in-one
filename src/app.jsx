@@ -7,7 +7,7 @@ var outputFolder
 
     inputFolder = Folder.selectDialog("Select a folder with images!")
     outputFolder = Folder.selectDialog("Select a folder for the output files!")
-    const files = app.openDialog()
+    const files = inputFolder.getFiles()
 
     if (!files) {
         alert('No files selected!')
@@ -16,6 +16,7 @@ var outputFolder
 
         portrait.processFiles(sortedFiles.portraitFiles)
         landscape.processFiles(sortedFiles.landscapeFiles)
+        alert("Processing of images finished!")
     }
 })()
 
@@ -64,6 +65,7 @@ function fourInOne(width, height, name) {
                     jpegOptions.quality = 10
 
                     base.info.author = 'ps-cc-four-in-one-script'
+                    base.info.creationDate = new Date().toString()
                     base.flatten()
                     base.bitsPerChannel = BitsPerChannelType.EIGHT
                     base.saveAs(new File(outputFolder + "/Output"+i+".jpg"), jpegOptions)
@@ -71,6 +73,7 @@ function fourInOne(width, height, name) {
                     base = app.documents.add(new UnitValue(width, "cm"), new UnitValue(height, "cm"), 300, name, NewDocumentMode.RGB, DocumentFill.TRANSPARENT)
                 }
             }
+            base.close(SaveOptions.DONOTSAVECHANGES)
         }
     }
 }
@@ -80,6 +83,7 @@ function sortFiles(files) {
     const landscapeFiles = []
 
     for (var i = 0; i < files.length; i++) {
+        // FIXME: check if we can avoid to open up the files here
         var file = open(files[i])
         if (file.height.value > file.width.value) {
             portraitFiles.push(file)
