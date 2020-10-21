@@ -31,9 +31,9 @@ function fourInOne(width, height, name) {
         miniHeight: miniHeight,
         base: base,
         name: name,
-        processFiles: function(docs) {
-            for (var i = 0; i < docs.length; i++) {
-                var doc = docs[i]
+        processFiles: function(files) {
+            for (var i = 0; i < files.length; i++) {
+                var doc = open(iles[i])
 
                 app.activeDocument = doc
 
@@ -47,6 +47,7 @@ function fourInOne(width, height, name) {
 
                 doc.close(SaveOptions.DONOTSAVECHANGES)
 
+                // FIXME: 0 % 4 === 0
                 if (i % 4 === 0 || i === docs.length - 1) {
                     if (base.artLayers.length >= 1) {
                         base.artLayers[0].translate(miniWidth * -1 / 2 - 0.5, miniHeight * -1 / 2 - 0.5)
@@ -70,6 +71,7 @@ function fourInOne(width, height, name) {
                     base.bitsPerChannel = BitsPerChannelType.EIGHT
                     base.saveAs(new File(outputFolder + "/Output"+i+".jpg"), jpegOptions)
                     base.close(SaveOptions.DONOTSAVECHANGES)
+                    // FIXME: change filenaming
                     base = app.documents.add(new UnitValue(width, "cm"), new UnitValue(height, "cm"), 300, name, NewDocumentMode.RGB, DocumentFill.TRANSPARENT)
                 }
             }
@@ -83,13 +85,13 @@ function sortFiles(files) {
     const landscapeFiles = []
 
     for (var i = 0; i < files.length; i++) {
-        // FIXME: check if we can avoid to open up the files here
-        var file = open(files[i])
-        if (file.height.value > file.width.value) {
-            portraitFiles.push(file)
+        var doc = open(files[i])
+        if (doc.height.value > doc.width.value) {
+            portraitFiles.push(files[i])
         } else {
-            landscapeFiles.push(file)
+            landscapeFiles.push(files[i])
         }
+        doc.close()
     }
 
     return {
