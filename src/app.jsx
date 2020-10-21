@@ -1,9 +1,12 @@
 var inputFolder
 var outputFolder
 
+const PORTRAIT_NAME = 'portrait';
+const LANDSCAPE_NAME = 'landscape';
+
 (function main() {
-    const portrait = fourInOne(13, 19.5, 'portrait')
-    const landscape = fourInOne(19.5, 13, 'landscape')
+    const portrait = fourInOne(13, 19.5, PORTRAIT_NAME)
+    const landscape = fourInOne(19.5, 13, LANDSCAPE_NAME)
 
     inputFolder = Folder.selectDialog("Select a folder with images!")
     outputFolder = Folder.selectDialog("Select a folder for the output files!")
@@ -67,6 +70,9 @@ function fourInOne(width, height, name) {
                     base.info.author = 'ps-cc-four-in-one-script'
                     base.info.creationDate = new Date().toString()
                     base.flatten()
+                    if(name === PORTRAIT_NAME) {
+                      base.rotateCanvas(90)
+                    }
                     base.bitsPerChannel = BitsPerChannelType.EIGHT
                     base.saveAs(new File(outputFolder + "/"+name+i+".jpg"), jpegOptions)
                     base.close(SaveOptions.DONOTSAVECHANGES)
