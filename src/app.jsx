@@ -5,8 +5,11 @@ const PORTRAIT_NAME = 'portrait';
 const LANDSCAPE_NAME = 'landscape';
 
 (function main() {
-    const portrait = fourInOne(13, 19.5, PORTRAIT_NAME)
-    const landscape = fourInOne(19.5, 13, LANDSCAPE_NAME)
+    const width = prompt("Output image width", 19.5)
+    const height = prompt("Output image height", 13)
+
+    const portrait = fourInOne(height, width, PORTRAIT_NAME)
+    const landscape = fourInOne(width, height, LANDSCAPE_NAME)
 
     inputFolder = Folder.selectDialog("Select a folder with images!")
     outputFolder = Folder.selectDialog("Select a folder for the output files!")
