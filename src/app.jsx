@@ -2,8 +2,8 @@ var inputFolder
 var outputFolder
 
 (function main() {
-    const portrait = fourInOne(13, 19.5, 'four-in-one-portrait')
-    const landscape = fourInOne(19.5, 13, 'four-in-one-landscape')
+    const portrait = fourInOne(13, 19.5, 'portrait')
+    const landscape = fourInOne(19.5, 13, 'landscape')
 
     inputFolder = Folder.selectDialog("Select a folder with images!")
     outputFolder = Folder.selectDialog("Select a folder for the output files!")
@@ -68,9 +68,9 @@ function fourInOne(width, height, name) {
                     base.info.creationDate = new Date().toString()
                     base.flatten()
                     base.bitsPerChannel = BitsPerChannelType.EIGHT
-                    base.saveAs(new File(outputFolder + "/Output"+i+".jpg"), jpegOptions)
+                    base.saveAs(new File(outputFolder + "/"+name+i+".jpg"), jpegOptions)
                     base.close(SaveOptions.DONOTSAVECHANGES)
-                    // FIXME: change filenaming
+
                     base = app.documents.add(new UnitValue(width, "cm"), new UnitValue(height, "cm"), 300, name, NewDocumentMode.RGB, DocumentFill.TRANSPARENT)
                 }
             }
