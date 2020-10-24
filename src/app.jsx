@@ -96,22 +96,27 @@ function sortFiles(files) {
     for (var i = 0; i < files.length; i++) {
         var doc = open(files[i])
         if (doc.height.value > doc.width.value) {
-            if(Math.round((doc.height.value / 3)) !== Math.round((doc.width.value / 2))) {
-              alert(doc.fullName + " is not a 3:2 ratio. Skipping file. Ratio is: "+doc.height.value+":"+doc.width.value)
-            } else {
-              portraitFiles.push(files[i])
-            }
+            if (Math.round((doc.height.value / 3)) !== Math.round((doc.width.value / 2))) {
+                var confirmation = confirm(doc.fullName + " is not a 3:2 ratio. Add it anyway? Ratio is: " + doc.height.value + ":" + doc.width.value)
+                if (confirmation) {
+                    portraitFiles.push(files[i])
+                }
 
+            } else {
+                portraitFiles.push(files[i])
+            }
         } else {
-            if(Math.round((doc.height.value / 2)) !== Math.round((doc.width.value / 3))) {
-              alert(doc.fullName + "is not a 2:3 ratio. Skipping file. Ratio is: "+doc.height.value+":"+doc.width.value)
-            }else {
-              landscapeFiles.push(files[i])
+            if (Math.round((doc.height.value / 2)) !== Math.round((doc.width.value / 3))) {
+                var confirmation = confirm(doc.fullName + "is not a 2:3 ratio. Add it anyway? Ratio is: " + doc.height.value + ":" + doc.width.value)
+                if (confirmation) {
+                    landscapeFiles.push(files[i])
+                }
+            } else {
+                landscapeFiles.push(files[i])
             }
         }
         doc.close()
     }
-
     return {
         portraitFiles: portraitFiles,
         landscapeFiles: landscapeFiles
