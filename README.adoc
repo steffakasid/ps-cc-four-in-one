@@ -1,3 +1,7 @@
 = PS CC Four in One
 
 This photoshop script is used to add four pictures into one, to be able to print them with link:https://www.cewe.de/fotos.html[cewe] as an 13cm Foto. The fotos are added and arranged at the corners.
+
+== How to use?
+
+I use VSCode with `Adobe Script Runner` Extension to directly execute the Javascript File in Photoshop. But it should also be possible to load the script into Photoshop and execute it from there. I didn't test this.
